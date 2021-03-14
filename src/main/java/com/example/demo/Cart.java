@@ -29,4 +29,8 @@ public class Cart {
     public int getCost() {
         return cost;
     }
+
+    public ArrayList<Book> getList() {
+        return list;
+    }
 }

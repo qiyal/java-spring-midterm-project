@@ -15,6 +15,7 @@ public class Client {
     private String surname;
 
     @ManyToMany(
+            fetch = FetchType.EAGER,
             cascade = CascadeType.ALL
     )
     @JoinTable(
@@ -31,6 +32,15 @@ public class Client {
         this.password = password;
         this.name = name;
         this.surname = surname;
+    }
+
+    public Client(Long id, String login, String password, String name, String surname, Set<Book> books) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
+        this.books = books;
     }
 
     public Long getId() {

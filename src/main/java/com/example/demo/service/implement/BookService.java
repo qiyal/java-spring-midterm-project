@@ -1,6 +1,7 @@
 package com.example.demo.service.implement;
 
 import com.example.demo.entity.Book;
+import com.example.demo.entity.Client;
 import com.example.demo.repository.BookRepository;
 import com.example.demo.service.IBookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,5 +17,10 @@ public class BookService implements IBookService {
     @Override
     public List<Book> getAllBooks() {
         return bookRepository.getAllBy();
+    }
+
+    @Override
+    public List<Book> getBookByClientFavorites(Client client) {
+        return bookRepository.getBooksByClientIsContaining(client);
     }
 }

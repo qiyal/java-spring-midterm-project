@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.controller.AdminController;
 import com.example.demo.controller.BookController;
 import com.example.demo.controller.ClientController;
 import com.example.demo.controller.MyOrderController;
@@ -12,8 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 @Component
 public class BookShopApp {
@@ -21,6 +24,8 @@ public class BookShopApp {
     @Qualifier("initScanner")
     private Scanner sc;
 
+    @Autowired
+    private AdminController adminController;
     @Autowired
     private ClientController clientController;
     @Autowired
@@ -33,12 +38,12 @@ public class BookShopApp {
     private boolean authStatus;
     private boolean isClient;
     private boolean stopApp;
-    private String clientLogin;
+    private String currentLogin;
 
     public BookShopApp() {
         this.authStatus = false;
         this.isClient = false;
-        this.clientLogin = null;
+        this.currentLogin = null;
         this.stopApp = false;
     }
 
@@ -52,7 +57,11 @@ public class BookShopApp {
         if (clientController.hasClient(login, password)) {
             this.authStatus = true;
             this.isClient = true;
-            this.clientLogin = login;
+            this.currentLogin = login;
+            System.out.println("Welcome!");
+        } else if (adminController.checkAdmin(login, password)) {
+            this.authStatus = true;
+            this.currentLogin = login;
             System.out.println("Welcome!");
         } else {
             System.out.println("Login or password is not correct!");
@@ -131,20 +140,76 @@ public class BookShopApp {
                     case "2":
                         System.out.print("choose book: ");
                         chose = sc.next();
-                        clientController.addBookToFavorites(clientLogin, books.get(Integer.parseInt(chose)));
+                        clientController.addBookToFavorites(currentLogin, books.get(Integer.parseInt(chose)));
                         break;
                     case "3":
-                        Client client = clientController.getClient(clientLogin);
+                        Client client = clientController.getClient(currentLogin);
                         Integer cost = calculateOrderCost.calculateCost();
-                        MyOrder order = new MyOrder(cost, clientLogin, OrderStatusEnum.IN_PROCESSING.toString());
+                        MyOrder order = new MyOrder(cost, currentLogin, OrderStatusEnum.IN_PROCESSING.toString());
                         myOrderController.saveOrder(order);
+                        break;
+                    case "4":
+                        ArrayList<Book> items = calculateOrderCost.getCart().getList();
+                        for (int i = 0; i < items.size(); i++) {
+                            System.out.println(i + ") " + items.get(i).getName() + " Price: " + items.get(i).getPrice());
+                        }
+                        System.out.println("Total amount: " + calculateOrderCost.getCart().getCost());
+                        break;
+                    case "5":
+                        System.out.println("My favorites list");
+                        Set<Book> list = clientController.getClient(currentLogin).getBooks();
+
+                        int q = 0;
+                        for (Book book : list) {
+                            System.out.println(q + ") " + book.getName() + "\t" + "Price: " + book.getPrice());
+                        }
+                        break;
                     case "0":
                         isClient = false;
                         authStatus = false;
-                        clientLogin = null;
+                        currentLogin = null;
                         break;
                     default:
                         System.out.println("Invalid argument!");
+                }
+            } else if (authStatus) {
+                ArrayList<MyOrder> orders = myOrderController.getByStatusNot(OrderStatusEnum.PAID.toString());
+
+                for (int i = 0; i < orders.size(); i++) {
+                    System.out.println(i + ") " + "Client login: " + orders.get(i).getClientLogin());
+                    System.out.println("   Cost: " + orders.get(i).getCost());
+                    System.out.println("   Status: " + orders.get(i).getStatus());
+                }
+                System.out.println("1 - Change status of order");
+                System.out.println("0 - Sign out");
+                System.out.print("enter: ");
+                option = sc.next();
+
+                switch (option) {
+                    case "1":
+                        System.out.print("choose order: ");
+                        chose = sc.next();
+
+                        System.out.println("1 - " + OrderStatusEnum.EXPECT_DELIVERY);
+                        System.out.println("2 - " + OrderStatusEnum.PAID);
+                        System.out.print("enter: ");
+                        option = sc.next();
+
+                        String newStatus;
+                        if (option.equals("1")) {
+                            newStatus = OrderStatusEnum.EXPECT_DELIVERY.toString();
+                        } else {
+                            newStatus = OrderStatusEnum.PAID.toString();
+                        }
+
+                        myOrderController.updateOrderStatus(orders.get(Integer.parseInt(chose)), newStatus, currentLogin);
+                        break;
+                    case "0":
+                        authStatus = false;
+                        currentLogin = null;
+                        break;
+                    default:
+                        System.out.println("def");
                 }
             }
         }
