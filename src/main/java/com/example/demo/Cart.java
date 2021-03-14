@@ -16,16 +16,17 @@ public class Cart {
     }
 
     public void addBook(Book book) {
+        System.out.println("Add book:" + book);
         cost += book.getPrice();
         list.add(book);
     }
 
     public void remove(int index) {
+        cost -= list.get(index).getPrice();
         list.remove(index);
     }
 
     public int getCost() {
         return cost;
     }
-
 }
