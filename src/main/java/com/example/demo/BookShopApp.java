@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.criteria.Order;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -127,6 +128,7 @@ public class BookShopApp {
                 System.out.println("3 - Make the order");
                 System.out.println("4 - Show cart items");
                 System.out.println("5 - Show my favorites");
+                System.out.println("6 - Show my order");
                 System.out.println("0 - Sign out");
                 System.out.print("enter: ");
                 option = sc.next();
@@ -164,6 +166,9 @@ public class BookShopApp {
                             System.out.println(q + ") " + book.getName() + "\t" + "Price: " + book.getPrice());
                         }
                         break;
+                    case "6":
+                        System.out.println("My orders");
+                        ArrayList<Order> orders = clientController.getClientOrders(currentLogin);
                     case "0":
                         isClient = false;
                         authStatus = false;
