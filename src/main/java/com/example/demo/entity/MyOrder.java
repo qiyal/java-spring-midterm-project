@@ -54,9 +54,11 @@ public class MyOrder {
 
     @Override
     public String toString() {
-        return "Order{" +
+        return "MyOrder{" +
                 "id=" + id +
                 ", cost=" + cost +
+                ", clientLogin='" + clientLogin + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 }

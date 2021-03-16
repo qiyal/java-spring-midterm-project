@@ -3,7 +3,6 @@ package com.example.demo.service.implement;
 import com.example.demo.Cart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,6 +18,7 @@ public class CalculateOrderCost {
         if (cart.getCost() < 5000) {
             return cart.getCost() + deliveryCost;
         }
+
         return cart.getCost();
     }
 
@@ -36,5 +36,10 @@ public class CalculateOrderCost {
 
     public void setDeliveryCost(int deliveryCost) {
         this.deliveryCost = deliveryCost;
+    }
+
+    public void clear() {
+        cart.getList().clear();
+        cart.setCost(0);
     }
 }

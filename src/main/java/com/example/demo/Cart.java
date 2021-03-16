@@ -33,4 +33,8 @@ public class Cart {
     public ArrayList<Book> getList() {
         return list;
     }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
 }

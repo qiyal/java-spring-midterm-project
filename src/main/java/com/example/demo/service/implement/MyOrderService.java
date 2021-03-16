@@ -38,6 +38,11 @@ public class MyOrderService implements IMyOrderService, ApplicationEventPublishe
     }
 
     @Override
+    public ArrayList<MyOrder> getOrdersByLogin(String login) {
+        return (ArrayList<MyOrder>) orderRepository.getMyOrdersByClientLogin(login);
+    }
+
+    @Override
     public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
         this.eventPublisher = applicationEventPublisher;
     }

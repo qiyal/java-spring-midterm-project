@@ -147,8 +147,14 @@ public class BookShopApp {
                     case "3":
                         Client client = clientController.getClient(currentLogin);
                         Integer cost = calculateOrderCost.calculateCost();
-                        MyOrder order = new MyOrder(cost, currentLogin, OrderStatusEnum.IN_PROCESSING.toString());
-                        myOrderController.saveOrder(order);
+
+                        if (cost != calculateOrderCost.getDeliveryCost()) {
+                            MyOrder order = new MyOrder(cost, currentLogin, OrderStatusEnum.IN_PROCESSING.toString());
+                            myOrderController.saveOrder(order);
+                            calculateOrderCost.clear();
+                        } else {
+                            System.out.println("Cart is empty!");
+                        }
                         break;
                     case "4":
                         ArrayList<Book> items = calculateOrderCost.getCart().getList();
@@ -163,12 +169,17 @@ public class BookShopApp {
 
                         int q = 0;
                         for (Book book : list) {
-                            System.out.println(q + ") " + book.getName() + "\t" + "Price: " + book.getPrice());
+                            System.out.println(q++ + ") " + book.getName() + "\t" + "Price: " + book.getPrice());
                         }
                         break;
                     case "6":
                         System.out.println("My orders");
-                        ArrayList<Order> orders = clientController.getClientOrders(currentLogin);
+                        ArrayList<MyOrder> orders = myOrderController.getOrderByLogin(currentLogin);
+
+                        for (int i = 0; i < orders.size(); i++) {
+                            System.out.println(i + ") " + orders.get(i));
+                        }
+                        break;
                     case "0":
                         isClient = false;
                         authStatus = false;

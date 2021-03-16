@@ -23,4 +23,8 @@ public class MyOrderController {
     public ArrayList<MyOrder> getByStatusNot(String status) {
         return myOrderService.getOrderByStatusNot(status);
     }
+
+    public ArrayList<MyOrder> getOrderByLogin(String login) {
+        return myOrderService.getOrdersByLogin(login);
+    }
 }

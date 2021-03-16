@@ -10,9 +10,6 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.Order;
-import java.util.List;
-
 @Service
 public class ClientService implements IClientService, ApplicationEventPublisherAware {
     @Autowired

@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface OrderRepository extends JpaRepository<MyOrder, Long> {
     List<MyOrder> getMyOrdersByStatusNotOrderByStatus(String status);
+    List<MyOrder> getMyOrdersByClientLogin(String login);
 }
