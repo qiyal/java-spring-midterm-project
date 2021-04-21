@@ -1,21 +1,21 @@
 package com.example.demo.event;
 
 import com.example.demo.entity.Book;
-import com.example.demo.entity.Client;
+import com.example.demo.entity.User;
 import org.springframework.context.ApplicationEvent;
 
 public class ClientAddNewFavorite extends ApplicationEvent {
-    private Client client;
+    private User user;
     private Book book;
 
-    public ClientAddNewFavorite(Object source, Client client, Book book) {
+    public ClientAddNewFavorite(Object source, User user, Book book) {
         super(source);
-        this.client = client;
+        this.user = user;
         this.book = book;
     }
 
-    public Client getClient() {
-        return client;
+    public User getClient() {
+        return user;
     }
 
     public Book getBook() {

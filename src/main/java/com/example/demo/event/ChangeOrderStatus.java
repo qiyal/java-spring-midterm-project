@@ -1,18 +1,17 @@
 package com.example.demo.event;
 
-import com.example.demo.entity.Admin;
-import com.example.demo.entity.MyOrder;
+import com.example.demo.entity.Order;
 import org.springframework.context.ApplicationEvent;
 
 public class ChangeOrderStatus extends ApplicationEvent {
     private String oldStatus;
-    private MyOrder myOrder;
+    private Order order;
     private String admin;
 
-    public ChangeOrderStatus(Object source, String oldStatus, MyOrder myOrder, String admin) {
+    public ChangeOrderStatus(Object source, String oldStatus, Order order, String admin) {
         super(source);
         this.oldStatus = oldStatus;
-        this.myOrder = myOrder;
+        this.order = order;
         this.admin = admin;
     }
 
@@ -20,8 +19,8 @@ public class ChangeOrderStatus extends ApplicationEvent {
         return oldStatus;
     }
 
-    public MyOrder getMyOrder() {
-        return myOrder;
+    public Order getMyOrder() {
+        return order;
     }
 
     public String getAdmin() {

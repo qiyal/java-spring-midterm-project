@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,12 +13,11 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @ToString
-public class Book {
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String author;
-    private Integer price;
-    private Integer year;
+    private Integer cost;
+    private String status;
+    private String shippingMethod;
 }

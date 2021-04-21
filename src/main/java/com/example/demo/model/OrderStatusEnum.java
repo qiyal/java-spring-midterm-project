@@ -1,7 +1,7 @@
-package com.example.demo.entity;
+package com.example.demo.model;
 
 public enum OrderStatusEnum {
     IN_PROCESSING,
     EXPECT_DELIVERY,
-    PAID
+    DELIVERED
 }
