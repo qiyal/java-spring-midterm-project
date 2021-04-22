@@ -20,4 +20,6 @@ public class Book {
     private String author;
     private Integer price;
     private Integer year;
+    @Column(columnDefinition = "integer default 0")
+    private Integer quantity;
 }

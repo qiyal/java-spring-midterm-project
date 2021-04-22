@@ -1,12 +1,14 @@
 package com.example.demo.entity;
 
 
+import com.example.demo.model.ShippingMethodEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Setter
@@ -19,5 +21,7 @@ public class Order {
     private Long id;
     private Integer cost;
     private String status;
-    private String shippingMethod;
+    @Enumerated(EnumType.STRING)
+    private ShippingMethodEnum shippingMethod;
+    private Date day;
 }
