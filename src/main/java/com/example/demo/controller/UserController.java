@@ -37,4 +37,10 @@ public class UserController {
     public ResponseEntity<?> addBookToFavorites(@PathVariable("id") Long id, @RequestBody Book book) {
         return ResponseEntity.ok(iUserService.addBookToFavorites(id, book));
     }
+
+    // DELETE
+    @PatchMapping("/delete/favoriteBooks/{id}")
+    public void deleteBookFromFavoriteBook() {
+
+    }
 }
