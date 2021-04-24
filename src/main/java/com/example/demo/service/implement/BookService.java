@@ -19,6 +19,16 @@ public class BookService implements IBookService {
     }
 
     @Override
+    public List<Book> findBookByNameOrAuthor(String name, String author) {
+        return bookRepository.getBooksByNameContainsOrAuthorContains(name, author);
+    }
+
+    @Override
+    public Book getBookById(Long id) {
+        return bookRepository.getBookById(id);
+    }
+
+    @Override
     public Book createNew(Book book) {
         return bookRepository.saveAndFlush(book);
     }
@@ -33,5 +43,10 @@ public class BookService implements IBookService {
         Book book = bookRepository.getOne(bookId);
         book.setPrice(price);
         return bookRepository.saveAndFlush(book);
+    }
+
+    @Override
+    public void deleteBookById(Long id) {
+        bookRepository.deleteById(id);
     }
 }

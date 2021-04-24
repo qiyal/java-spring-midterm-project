@@ -1,9 +1,6 @@
 package com.example.demo.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,6 +9,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @ToString
+@EqualsAndHashCode
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +18,4 @@ public class Book {
     private String author;
     private Integer price;
     private Integer year;
-    @Column(columnDefinition = "integer default 0")
-    private Integer quantity;
 }

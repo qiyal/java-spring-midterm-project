@@ -27,7 +27,13 @@ public class UserController {
         return ResponseEntity.ok(iUserService.createNew(user));
     }
 
-    // PATCH
+    // DELETE
+    @DeleteMapping("/{id}/delete/favoriteBooks")
+    public ResponseEntity<?> deleteBookFromFavoriteBook(@PathVariable("id") Long id, @RequestBody Book book) {
+        return ResponseEntity.ok(iUserService.deleteBookFromFavorites(id, book));
+    }
+
+    // PATCH - 2
     @PatchMapping("/{id}/update/password")
     public ResponseEntity<?> updateUserPassword(@PathVariable("id") Long id, @RequestBody String password) {
         return ResponseEntity.ok(iUserService.updateUsername(id, password));
@@ -36,11 +42,5 @@ public class UserController {
     @PatchMapping("/{id}/update/add-book-to-favorites")
     public ResponseEntity<?> addBookToFavorites(@PathVariable("id") Long id, @RequestBody Book book) {
         return ResponseEntity.ok(iUserService.addBookToFavorites(id, book));
-    }
-
-    // DELETE
-    @PatchMapping("/delete/favoriteBooks/{id}")
-    public void deleteBookFromFavoriteBook() {
-
     }
 }
