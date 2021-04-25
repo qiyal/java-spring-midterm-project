@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -34,9 +32,9 @@ public class UserController {
     }
 
     // PATCH - 2
-    @PatchMapping("/{id}/update/password")
-    public ResponseEntity<?> updateUserPassword(@PathVariable("id") Long id, @RequestBody String password) {
-        return ResponseEntity.ok(iUserService.updateUsername(id, password));
+    @PatchMapping("/{id}/update/username")
+    public ResponseEntity<?> updateUserPassword(@PathVariable("id") Long id, @RequestBody String username) {
+        return ResponseEntity.ok(iUserService.updateUsername(id, username));
     }
 
     @PatchMapping("/{id}/update/add-book-to-favorites")

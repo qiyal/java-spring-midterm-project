@@ -1,4 +1,4 @@
-package com.example.demo.handler;
+package com.example.demo.event.handler;
 
 import com.example.demo.event.ChangeOrderStatus;
 import org.springframework.context.ApplicationListener;
@@ -10,8 +10,8 @@ public class ChangeOrderStatusHandler implements ApplicationListener<ChangeOrder
     @Override
     public void onApplicationEvent(ChangeOrderStatus changeOrderStatus) {
         System.out.println("ChangeOrderStatusHandler is triggered");
+        System.out.println("Order ID: " + changeOrderStatus.getMyOrder().getId());
         System.out.println("Old status: " + changeOrderStatus.getOldStatus());
         System.out.println("New status: " + changeOrderStatus.getMyOrder().getStatus());
-        System.out.println("Admin: " + changeOrderStatus.getAdmin());
     }
 }

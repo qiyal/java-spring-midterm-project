@@ -2,9 +2,12 @@ package com.example.demo.service.implement;
 
 import com.example.demo.entity.Book;
 import com.example.demo.entity.User;
+import com.example.demo.event.UserAddNewFavorite;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,11 +17,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserService implements IUserService, UserDetailsService {
+public class UserService implements IUserService, UserDetailsService, ApplicationEventPublisherAware {
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+    private ApplicationEventPublisher eventPublisher;
 
     @Override
     public List<User> getAll() {
@@ -36,6 +40,7 @@ public class UserService implements IUserService, UserDetailsService {
     public User addBookToFavorites(Long userId, Book book) {
         User user = userRepository.getOne(userId);
         user.getFavoriteBooks().add(book);
+        eventPublisher.publishEvent(new UserAddNewFavorite(this, user, book));
         return userRepository.saveAndFlush(user);
     }
 
@@ -60,5 +65,10 @@ public class UserService implements IUserService, UserDetailsService {
             throw new UsernameNotFoundException("User by username=" + username + " not found!");
         }
         return user;
+    }
+
+    @Override
+    public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
+        this.eventPublisher = applicationEventPublisher;
     }
 }

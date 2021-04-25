@@ -24,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/auth/**").permitAll()
                 // API Book
                 .antMatchers("/api/books", "/api/books/{id}", "/api/books/all").permitAll()
-                .antMatchers("/api/books/action/**").hasAuthority(RoleEnum.ADMIN.toString())
+                .antMatchers("/api/books/action/create", "/api/books/action/update", "/api/books/action/delete/{id}", "/api/books/action/update/{id}").hasAuthority(RoleEnum.ADMIN.toString())
                 // API Order
                 .antMatchers("/api/orders", "/api/orders/all").permitAll()
                 .antMatchers("/api/orders/create").hasAnyAuthority(RoleEnum.ADMIN.toString(), RoleEnum.USER.toString())
