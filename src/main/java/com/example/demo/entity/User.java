@@ -23,6 +23,7 @@ public class User implements UserDetails {
     private String password;
     private String name;
     private String surname;
+    private String imgUrl;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(

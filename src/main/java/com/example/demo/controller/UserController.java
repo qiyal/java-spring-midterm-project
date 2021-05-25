@@ -8,12 +8,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/users")
 public class UserController {
     @Autowired
     private IUserService iUserService;
 
     // GET
+    @GetMapping("")
+    public ResponseEntity<?> getUserByUsername(@RequestParam("username") String username) {
+        return ResponseEntity.ok(iUserService.getByUsername(username));
+    }
+
     @GetMapping("/all")
     public ResponseEntity<?> getAllUsers() {
         return ResponseEntity.ok(iUserService.getAll());

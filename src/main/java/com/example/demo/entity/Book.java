@@ -18,4 +18,5 @@ public class Book {
     private String author;
     private Integer price;
     private Integer year;
+    private String imgUrl;
 }

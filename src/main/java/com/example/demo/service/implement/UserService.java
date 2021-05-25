@@ -52,6 +52,11 @@ public class UserService implements IUserService, UserDetailsService, Applicatio
     }
 
     @Override
+    public User getByUsername(String username) {
+        return userRepository.getByUsername(username);
+    }
+
+    @Override
     public User createNew(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.saveAndFlush(user);

@@ -11,4 +11,5 @@ public interface IUserService {
     User updateUsername(Long id, String username);
     User addBookToFavorites(Long userId, Book book);
     User deleteBookFromFavorites(Long userId, Book book);
+    User getByUsername(String username);
 }

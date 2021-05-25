@@ -23,8 +23,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/auth/**").permitAll()
                 // API Book
-                .antMatchers("/api/books", "/api/books/{id}", "/api/books/all").permitAll()
-                .antMatchers("/api/books/action/create", "/api/books/action/update", "/api/books/action/delete/{id}", "/api/books/action/update/{id}").hasAuthority(RoleEnum.ADMIN.toString())
+                .antMatchers("/books", "/books/{id}", "/books/all").permitAll()
+                .antMatchers("/books/action/create", "/books/action/update", "/books/action/delete/{id}", "/action/update/{id}").hasAuthority(RoleEnum.ADMIN.toString())
                 // API Order
                 .antMatchers("/api/orders", "/api/orders/all").permitAll()
                 .antMatchers("/api/orders/create").hasAnyAuthority(RoleEnum.ADMIN.toString(), RoleEnum.USER.toString())
@@ -33,8 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/comments").permitAll()
                 .antMatchers("/api/comments/create", "/api/comments/update", "/api/comments/delete/{id}").hasAnyAuthority(RoleEnum.ADMIN.toString(), RoleEnum.USER.toString())
                 // API User
-                .antMatchers("/api/users/all", "/api/users/create").permitAll()
-                .antMatchers("/api/users/{id}/delete/favoriteBooks", "/api/users/{id}/update/password", "/api/users/{id}/update/add-book-to-favorites").hasAnyAuthority(RoleEnum.ADMIN.toString(),  RoleEnum.USER.toString())
+                .antMatchers("/users/all", "/users/create", "/users").permitAll()
+                .antMatchers("/users/{id}/delete/favoriteBooks", "/users/{id}/update/password", "/users/{id}/update/add-book-to-favorites").hasAnyAuthority(RoleEnum.ADMIN.toString(),  RoleEnum.USER.toString())
                 // API Swagger
                 .antMatchers("/v2/api-docs",
                         "/swagger-resources/**",
